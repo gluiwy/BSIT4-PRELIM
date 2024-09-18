@@ -17,7 +17,7 @@
                   <td><input class="form-control" type="text"></td>
                   <td style="width: 50px;">Age</td>
                   <td><input class="form-control" type="number"></td>
-                  <td><button class="btn  btn-primary">Update Age</button></td>
+                  <td><button class="btn  btn-primary" @click="editRecord()">Update Age</button></td>
                 </tr>
               </tbody>
             </table>

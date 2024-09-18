@@ -14,19 +14,19 @@
               <tbody>
                 <tr>
                   <td>First name</td>
-                  <td><input class="form-control" type="text"></td>
+                  <td><input class="form-control" type="text" v-model="fname" placeholder="Type first name here..."></td>
                 </tr>
                 <tr>
                   <td>Last name</td>
-                  <td><input class="form-control" type="text"></td>
+                  <td><input class="form-control" type="text" v-model="lname" placeholder="Type last name here..."></td>
                 </tr>
                 <tr>
                   <td>Age</td>
-                  <td><input class="form-control" type="number"></td>
+                  <td><input class="form-control" type="number"  v-model="age"></td>
                 </tr>
                 <tr>
                   <td></td>
-                  <td><button class="btn btn-primary w-100">Submit</button></td>
+                  <td><button class="btn btn-primary w-100" @click="insertRecord()">Submit</button></td>
                 </tr>
               </tbody>
             </table>
@@ -38,10 +38,38 @@
 </template>
 <script lang="ts">
 
+  import axios from 'axios';
+  import Swal from 'sweetalert2';
   import Sidebar from "@/components/Sidebar.vue";
 
   export default {
-    components: { Sidebar }
+    name: "InsertRecord",
+    components: {Sidebar},
+    data() {
+        return {
+        fname: "",
+        lname: "",
+        age: 0
+        }
+    },
+
+    methods: {
+        async insertRecord() {
+        await axios.get("https://api.jlipreso.com/miit/public/api/user/insertRecord/" + this.fname + "/" + this.lname + "/" + this.age).then( async (response) => {
+            Swal.fire({
+            title: "Successful",
+            text: response.data?.message,
+            icon: "success"
+            }).then(async () => {
+                this.fname = '';
+                this.lname = '';
+                this.age = 0;
+
+            })
+        }) ;
+        }
+   
+  },
   }
 
 </script>

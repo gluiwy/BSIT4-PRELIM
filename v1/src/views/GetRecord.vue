@@ -21,12 +21,11 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(user, i) in 3" :key="i">
+                <tr v-for="(user, i) in users" :key="i">
                   <td>{{ (i + 1) }}</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-
+                  <td>{{ user.fname }}</td>
+                  <td>{{ user.lname }}</td>
+                  <td>{{ user.age }}</td>
                 </tr>
               </tbody>
             </table>
@@ -45,12 +44,11 @@
 
 
   export default {
-    name: "getRecord",
+    name: "GetRecord",
     components: {Sidebar},
     data() {
       return {
-        users: {} as any,
-        id: 0
+        users: {} as any[]
       }
     },
     methods: {
@@ -59,41 +57,9 @@
           this.users = response.data;
         });
       },
-      async editAge(user: any) {
-        Swal.fire({
-          title: "Enter new age",
-          input: "text",
-          inputAttributes: {
-            autocapitalize: "off"
-          },
-          showCancelButton: true,
-        }).then(async (result) => {
-          if (result.isConfirmed) {
-            await axios.get("http://127.0.0.1:8000/api/user/updateRecord/" + user?.dataid + "/" + result.value).then(async () => {
-              this.getRecord();
-            });
-            }
-        });
-       
-      },
-      async deleteRecords(user: any) {
-        Swal.fire({
-          title: "Confirmation",
-          text: "Delete selected user?",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonText: "Yes, delete it!",
-        }).then(async (result) => {
-          if (result.isConfirmed) {
-            await axios.get("http://127.0.0.1:8000/api/user/deleteByID/" + user?.dataid).then( async () => {
-              this.getRecord();
-            });
-           }
-        });
-      }
     }
-  
   }
+
   </script>
   <style scope>
   .container-bar {

@@ -54,7 +54,7 @@
             });
 
           } catch (error) {
-            // Handle error if the deletion fails
+            
             Swal.fire({
               title: "Error",
               text: error.response?.data?.message || "Failed!",
@@ -62,7 +62,7 @@
             });
           }
         } else {
-          // If no valid ID is entered, show a warning
+          
           Swal.fire({
             title: "Error",
             text: "Enter a valid ID.",
